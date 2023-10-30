@@ -18,5 +18,5 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-![alt text](https://github.com/chocolatecodelab/sobat_sunnah/blob/master/assets/images/prayer2.png?raw=true)
+![alt text](https://github.com/chocolatecodelab/sobat_sunnah/blob/master/assets/images/prayer4.png?raw=true)
 
