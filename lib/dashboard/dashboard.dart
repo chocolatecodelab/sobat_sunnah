@@ -24,8 +24,26 @@ class _DashboardPageState extends State<DashboardPage> {
   // Section untuk tambahTantangan
   void tambahTantangan(int jenis_id) async {
     // Sesuaikan Jenis_idnya kalo mau all in one berarti panggil 3x.
-    // Jenis ID : 1 = Sholat , 2 = Puasa , 3 = Lain-lain
+    // Jenis ID Sunnah : 1 = Sholat , 2 = Puasa , 3 = Lain-lain
     await SQLHelperTransaksi.tambahTantangan(DateTime.now(), jenis_id);
+  }
+
+  void tambahTantanganALlinOne() {
+    tambahTantangan(1);
+    tambahTantangan(2);
+    tambahTantangan(3);
+}
+
+  void tambahTantanganSholat() {
+    tambahTantangan(1);
+  }
+
+  void tambahTantanganPuasa() {
+    tambahTantangan(2);
+  }
+
+  void tambahTantanganLainnya() {
+    tambahTantangan(3);
   }
 
   var auth = Get.put(Controller());
@@ -238,6 +256,9 @@ class _DashboardPageState extends State<DashboardPage> {
                                   message: "Data berhasil disimpan",
                                   icon: Icons.check_circle_outline);
                             });
+
+                        // Pakai if disini
+                        tambahTantanganALlinOne();
                         await auth.box.write("username", auth.username.text);
                         await Get.off(BottomBar(
                           username: auth.box,
