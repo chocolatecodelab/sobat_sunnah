@@ -5,10 +5,10 @@ import 'package:sunnah_reminder/bacaan_sholat/model/model_niat.dart';
 import 'package:sunnah_reminder/bacaan_sholat/page/sunnah_page.dart';
 import 'package:sunnah_reminder/bottom_bar.dart';
 import 'package:sunnah_reminder/challenge/challenge_sunnah.dart';
+import 'package:sunnah_reminder/challenge/model/tb_transaksi_sunnah_helper.dart';
 import 'package:sunnah_reminder/controller.dart';
-import 'package:sunnah_reminder/notification/notification_controller.dart';
-import 'package:sunnah_reminder/register.dart';
-import 'package:sunnah_reminder/splash/welcome_screen.dart';
+import 'package:sunnah_reminder/widget/popup_tantangan.dart';
+import 'package:sunnah_reminder/widget/success_confirmation_dialog.dart';
 
 class DashboardPage extends StatefulWidget {
   final GetStorage? box;
@@ -19,6 +19,13 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
+  // Section untuk tambahTantangan
+  void tambahTantangan(int jenis_id) async {
+    // Sesuaikan Jenis_idnya kalo mau all in one berarti panggil 3x.
+    // Jenis ID : 1 = Sholat , 2 = Puasa , 3 = Lain-lain
+    await SQLHelperTransaksi.tambahTantangan(DateTime.now(), jenis_id);
+  }
+
   var auth = Get.put(Controller());
   @override
   Widget build(BuildContext context) {
@@ -102,19 +109,27 @@ class _DashboardPageState extends State<DashboardPage> {
           getItemSlider("Tantangan Sunnah", [
             // Item 1
             getItemCard(
+                "Sunnah All-in-One",
+                "Harapan menjadi seorang yang menghidupkan sunnah Rasulullah dengan ganjaran pahala dan balasan yang luar biasa",
+                "./assets/image/allone.jpg",
+                "1. Puasa\n2. Sholat\n3. Sunnah Lainnya"),
+            getItemCard(
                 "Membaca Qur'an",
                 "Harapan menjadi keluarga Al-Qur'an dengan sering membaca Al-Qur'an setiap hari",
-                "./assets/image/quran.jpg"),
+                "./assets/image/quran.jpg",
+                "1. Surah Al-Mulk\n 2. Surah Yasin \n3. Surah Al-Waqi'ah"),
             // Item 2
             getItemCard(
                 "Sholat Sunnah",
                 "Menjadi pemburu surga dengan menjalankan perintah sholat sunnah setiap saat",
-                "./assets/image/shalat.jpg"),
+                "./assets/image/shalat.jpg",
+                "1. Sholat Rawatib\n2. Sholat Dhuha\n3. Sholat Tahajud"),
             // Item 3
             getItemCard(
                 "Pejuang Puasa",
                 "Menjadi seorang Ummat dengan penuh makna dengan menjalankan sunnah Puasa",
-                "./assets/image/puasa.jpg"),
+                "./assets/image/puasa.jpg",
+                "1. Puasa Senin-Kamis\n 2. Puasa Ayyamul Bidh \n3. Puasa 10 Muharram"),
           ]),
         ],
       ),
@@ -144,7 +159,8 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
-  Widget getItemCard(String title, String subtitle, String backgroundImageUrl) {
+  Widget getItemCard(
+      String title, String subtitle, String backgroundImageUrl, String list) {
     return Container(
       width: 250, // Set the desired width for each item card
       margin: const EdgeInsets.all(8),
@@ -201,8 +217,31 @@ class _DashboardPageState extends State<DashboardPage> {
                     textAlign: TextAlign.center,
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                      Get.to(ChallengePage(title: "Challenge Sunnah"));
+                    onPressed: () async {
+                      bool? confirmationResult = await showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return PopupTantangan(
+                            title: title,
+                            message: subtitle,
+                            list: list,
+                          );
+                        },
+                      );
+                      if (confirmationResult == true) {
+                        await showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return SuccessConfirmationDialog(
+                                  message: "Data berhasil disimpan",
+                                  icon: Icons.check_circle_outline);
+                            });
+                        await auth.box.write("username", auth.username.text);
+                        await Get.offAll(BottomBar(
+                          username: auth.box,
+                          indexDirect: 2,
+                        ));
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(

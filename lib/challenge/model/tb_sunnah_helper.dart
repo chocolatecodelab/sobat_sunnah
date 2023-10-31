@@ -15,16 +15,16 @@ class SQLHelperSunnah {
   }
 
   static Future<int> createSunnah(
-    String judul,
-    String arabic,
-    String latin,
-    String terjemahan,
-    String manfaat,
-    int jenisId,
-    String deskripsi,
-    DateTime tanggalPelaksanaan,
-    String waktuPelaksanaan,
-  ) async {
+      String judul,
+      String arabic,
+      String latin,
+      String terjemahan,
+      String manfaat,
+      int jenisId,
+      String deskripsi,
+      DateTime tanggalPelaksanaan,
+      String waktuPelaksanaan,
+      ) async {
     final db = await SQLHelperSunnah.db();
 
     final data = {
@@ -66,17 +66,17 @@ class SQLHelperSunnah {
   }
 
   static Future<int> updateSunnah(
-    int id,
-    String judul,
-    String arabic,
-    String latin,
-    String terjemahan,
-    String manfaat,
-    int jenisId,
-    String deskripsi,
-    DateTime tanggalPelaksanaan,
-    String waktuPelaksanaan,
-  ) async {
+      int id,
+      String judul,
+      String arabic,
+      String latin,
+      String terjemahan,
+      String manfaat,
+      int jenisId,
+      String deskripsi,
+      DateTime tanggalPelaksanaan,
+      String waktuPelaksanaan,
+      ) async {
     final db = await SQLHelperSunnah.db();
 
     final data = {
