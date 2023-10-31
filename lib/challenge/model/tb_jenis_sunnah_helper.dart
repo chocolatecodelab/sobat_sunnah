@@ -6,8 +6,7 @@ import 'package:path_provider/path_provider.dart';
 
 class SQLHelperJenis {
   static Future<void> createTablesJenisSunnah(sql.Database database) async {
-    await database.execute(
-        '''
+    await database.execute('''
     CREATE TABLE tb_jenis_sunnah (
       id_jenis_sunnah INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
       nama_jenis_sunnah TEXT,
@@ -16,8 +15,7 @@ class SQLHelperJenis {
     )
     ''');
 
-    await database.execute(
-        '''
+    await database.execute('''
     CREATE TABLE tb_sunnah (
       id_sunnah INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
       judul TEXT,
@@ -35,36 +33,34 @@ class SQLHelperJenis {
     )
     ''');
 
-    await database.execute(
-        '''
+    await database.execute('''
     CREATE TABLE tb_transaksi_sunnah (
     id_transaksi_sunnah INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     user_id INTEGER,
     sunnah_id INTEGER,
     isCompleted INTEGER,
     created_at TIMESTAMP,
-    updated_at TIMESTAMP
+    updated_at TIMESTAMP, 
+    tanggal_pelaksanaan TIMESTAMP
     );
     ''');
 
-    await database.rawInsert(
-        '''
+    await database.rawInsert('''
     INSERT INTO tb_jenis_sunnah (nama_jenis_sunnah, created_at, updated_at)
     VALUES (?, ?, ?),
            (?, ?, ?),
            (?, ?, ?)
-''',
-        [
-          'Sholat',
-          '2023-10-18 10:00:00',
-          '2023-10-18 10:00:00',
-          'Puasa',
-          '2023-10-19 10:00:00',
-          '2023-10-19 10:00:00',
-          'Lain-Lain',
-          '2023-10-20 10:00:00',
-          '2023-10-20 10:00:00'
-        ]);
+''', [
+      'Sholat',
+      '2023-10-18 10:00:00',
+      '2023-10-18 10:00:00',
+      'Puasa',
+      '2023-10-19 10:00:00',
+      '2023-10-19 10:00:00',
+      'Lain-Lain',
+      '2023-10-20 10:00:00',
+      '2023-10-20 10:00:00'
+    ]);
 
 // Insert data into tb_sunnah table
     await database.rawInsert(
@@ -94,20 +90,6 @@ class SQLHelperJenis {
         '(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?),'
         '(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?)',
         [
-          // Data 1
-          'Puasa Senin-Kamis',
-          'لاَ تُلْزِمُ الْجُمْعَةَ بِصَوْمِہَا وَلٰكِنْ كَانَ يَصُوْمُهَا',
-          'La tulzimu al-jumata bi-sawmiha walakin kāna yasūmuhā',
-          'Janganlah kamu mengaitkan (kewajiban) berpuasa di hari Jumat dengan puasa lainnya, akan tetapi hendaklah kamu berpuasa jika kamu tidak sengaja bersua dengan hari itu.',
-          'Puasa Senin-Kamis memiliki banyak manfaat, seperti mendapatkan pahala, membersihkan jiwa, dan mendekatkan diri kepada Allah SWT.',
-          2,
-          'Puasa pada hari Senin dan Kamis adalah sunnah yang dianjurkan. Nabi Muhammad SAW sering berpuasa pada hari-hari ini. Tidak ada ayat Al-Quran khusus yang mengatur ini, tetapi ada banyak hadis yang meriwayatkan praktik Nabi.',
-          '2023-10-02 10:00:00',
-          '05:00 - 18:00',
-          '1',
-          '2023-10-18 10:00:00',
-          '2023-10-18 10:00:00',
-
           // Data 1.2
           'Puasa Senin-Kamis',
           'لاَ تُلْزِمُ الْجُمْعَةَ بِصَوْمِہَا وَلٰكِنْ كَانَ يَصُوْمُهَا',
@@ -118,7 +100,7 @@ class SQLHelperJenis {
           'Puasa pada hari Senin dan Kamis adalah sunnah yang dianjurkan. Nabi Muhammad SAW sering berpuasa pada hari-hari ini. Tidak ada ayat Al-Quran khusus yang mengatur ini, tetapi ada banyak hadis yang meriwayatkan praktik Nabi.',
           '2023-10-04 10:00:00',
           '05:00 - 18:00',
-          '1',
+          '1,4',
           '2023-10-18 10:00:00',
           '2023-10-18 10:00:00',
 
@@ -171,7 +153,7 @@ class SQLHelperJenis {
           'Puasa Tarwiyah membawa keutamaan yang luar biasa, termasuk penghapusan dosa-dosa yang telah lalu.',
           '2023-10-18 10:00:00',
           'Jam 12',
-          '1',
+          '0',
           '2023-10-18 10:00:00',
           '2023-10-18 10:00:00',
           // Data 6
@@ -236,7 +218,7 @@ class SQLHelperJenis {
           "Sholat Tahajud adalah sholat malam yang dilakukan pada malam setelah tidur. Ini adalah sholat sunnah yang sangat dianjurkan dan diberkahi. Terdapat banyak hadis yang meriwayatkan keutamaan sholat Tahajud.",
           '2023-10-02 10:00:00',
           '22:00 - 05:00',
-          '1',
+          '1,2,3,4,5,6,7',
           '2023-10-18 10:00:00',
           '2023-10-18 10:00:00',
           // Data 11
@@ -249,7 +231,7 @@ class SQLHelperJenis {
           "Sholat Dhuha adalah sholat sunnah yang dianjurkan pada pagi hari setelah matahari naik. Ini membawa berkah dan pahala. Terdapat hadis yang meriwayatkan keutamaan sholat Dhuha.",
           '2023-10-18 10:00:00',
           '07:00 - 18:00',
-          '1',
+          '1,2,3,4,5,6,7',
           '2023-10-18 10:00:00',
           '2023-10-18 10:00:00',
           // Data 12
@@ -262,7 +244,7 @@ class SQLHelperJenis {
           'Sholat Isyraq atau Dhuha adalah shalat sunnah yang dianjurkan pada waktu pagi setelah matahari naik. Sholat ini merupakan ungkapan syukur kepada Allah atas terbitnya matahari dan nikmat-Nya.',
           '2023-10-18 10:00:00',
           '07:00 - 18:00',
-          '1',
+          '1,2,3,4,5,6,7',
           '2023-10-18 10:00:00',
           '2023-10-18 10:00:00',
           // Data 13
@@ -275,7 +257,7 @@ class SQLHelperJenis {
           "Sholat Rawatib adalah shalat sunnah yang dianjurkan sebelum atau sesudah shalat wajib tertentu. Sholat ini dikerjakan sebagai bentuk ibadah tambahan dan dapat memberikan berkah.",
           '2023-10-18 10:00:00',
           'Sebelum Sholat',
-          '1',
+          '1,2,3,4,5,6,7',
           '2023-10-18 10:00:00',
           '2023-10-18 10:00:00',
           // Data 14
@@ -288,7 +270,7 @@ class SQLHelperJenis {
           "Sholat Witir adalah shalat sunnah yang dikerjakan pada malam hari. Rasulullah shallallahu alaihi wa sallam menganjurkan untuk mengerjakannya dalam bilangan ganjil, seperti satu rakaat, tiga rakaat, dan sebagainya. Sholat Witir memiliki keistimewaan tersendiri dan dianjurkan untuk melaksanakannya sebagai bentuk ibadah tambahan di malam hari.",
           '2023-10-18 10:00:00',
           '22:00 - 05:00',
-          '1',
+          '1,2,3,4,5,6,7',
           '2023-10-18 10:00:00',
           '2023-10-18 10:00:00',
           // Data 15
@@ -301,7 +283,7 @@ class SQLHelperJenis {
           "Sholat Idul Fitri adalah shalat yang dilaksanakan setelah selesai berpuasa selama bulan Ramadhan. Ini adalah hari raya bagi umat Islam yang mengakhiri bulan suci Ramadhan. Sholat Idul Fitri merupakan ungkapan syukur kepada Allah atas kesempatan untuk berpuasa dan menjalankan ibadah di bulan Ramadhan. Selain itu, sholat ini juga menjadi kesempatan untuk memperoleh pengampunan dan keberkahan.",
           '2023-04-22 10:00:00',
           '06:00',
-          '1',
+          '0',
           '2023-10-18 10:00:00',
           '2023-10-18 10:00:00',
           // Data 16
@@ -314,7 +296,7 @@ class SQLHelperJenis {
           "Sholat Idul Adha adalah shalat yang dilaksanakan pada hari raya Idul Adha, yang juga dikenal sebagai Hari Raya Qurban. Ini adalah hari besar dalam agama Islam yang dirayakan sebagai wujud syukur atas kesempatan untuk berqurban dan mengikuti ibadah haji. Meskipun tidak ada bacaan Arab spesifik untuk sholat ini, namun sholat ini memiliki makna yang mendalam dalam rangkaian perayaan Idul Adha.",
           '2023-06-29 10:00:00',
           '06:00',
-          '1',
+          '0',
           '2023-10-18 10:00:00',
           '2023-10-18 10:00:00',
           // Data 17
@@ -327,7 +309,7 @@ class SQLHelperJenis {
           'Sholat Wudhu adalah shalat sunnah yang dianjurkan setelah melakukan wudhu (berkumur dan membersihkan diri) sebelum shalat wajib. Shalat ini membawa keberkahan dan membersihkan jiwa.',
           '2023-10-18 10:00:00',
           'Fleksibel',
-          '1',
+          '1,2,3,4,5,6,7',
           '2023-10-18 10:00:00',
           '2023-10-18 10:00:00',
           // Data 18
@@ -340,7 +322,7 @@ class SQLHelperJenis {
           'Ada beberapa waktu di mana shalat tidak dianjurkan dilaksanakan, seperti saat terbit dan tenggelamnya matahari, ketika matahari berada tepat di tengah langit (zuhur), dan ketika matahari dalam fase terbenam. Waktu ini dianjurkan untuk menjauhi shalat.',
           '2023-10-18 10:00:00',
           '-',
-          '1',
+          '0',
           '2023-10-18 10:00:00',
           '2023-10-18 10:00:00',
           // Data 19
@@ -353,7 +335,7 @@ class SQLHelperJenis {
           'Zikir pagi dan petang adalah amalan berupa dzikir dan doa yang dianjurkan oleh Rasulullah pada pagi dan petang hari. Dengan berdzikir, kita mengingat Allah dan memohon rahmat-Nya.',
           '2023-10-18 10:00:00',
           '06:00 - 18:00',
-          '1',
+          '1,2,3,4,5,6,7',
           '2023-10-18 10:00:00',
           '2023-10-18 10:00:00',
           // Data 20
@@ -365,8 +347,8 @@ class SQLHelperJenis {
           3,
           'Surah Al-Waqiah adalah surah ke-56 dalam Al-Quran. Surah ini mengandung pelajaran dan peringatan tentang akhirat, pembagian orang-orang menjadi tiga golongan, dan keutamaan membaca surah ini.',
           '2023-10-18 10:00:00',
-          '-',
-          '1',
+          '00:00 - 24:00',
+          '1,2,3,4,5,6,7',
           '2023-10-18 10:00:00',
           '2023-10-18 10:00:00',
           // Data 21
@@ -378,8 +360,8 @@ class SQLHelperJenis {
           3,
           'Surah Al-Mulk adalah surah ke-67 dalam Al-Quran. Surah ini mengandung pelajaran tentang kekuasaan Allah dan keutamaan membaca surah ini sebelum tidur.',
           '2023-10-18 10:00:00',
-          '-',
-          '1',
+          '00:00 - 24:00',
+          '1,2,3,4,5,6,7',
           '2023-10-18 10:00:00',
           '2023-10-18 10:00:00',
           // Data 22
@@ -391,24 +373,11 @@ class SQLHelperJenis {
           3,
           'Surah Al-Kahfi adalah surah ke-18 dalam Al-Quran. Surah ini mengandung pelajaran tentang iman, cobaan, dan perlindungan dari fitnah Dajjal.',
           '2023-10-18 10:00:00',
-          '-',
-          '1',
+          '00:00 - 24:00',
+          '1,2,3,4,5,6,7',
           '2023-10-18 10:00:00',
           '2023-10-18 10:00:00',
         ]);
-
-    //Insert Data Transaksi
-    for (int i = 0; i < 10; i++) {
-      int sunnahId = Random().nextInt(22) + 1;
-      int isCompleted = Random().nextInt(2);
-
-      await database.rawInsert(
-          '''
-            INSERT INTO tb_transaksi_sunnah (user_id, sunnah_id, isCompleted, created_at, updated_at)
-            VALUES (1, ?, ?, '2023-10-18 10:00:00', '2023-10-18 10:00:00')
-            ''',
-          [sunnahId, isCompleted]);
-    }
   }
 
   static Future<sql.Database> db() async {
