@@ -237,7 +237,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                   icon: Icons.check_circle_outline);
                             });
                         await auth.box.write("username", auth.username.text);
-                        await Get.offAll(BottomBar(
+                        await Get.off(BottomBar(
                           username: auth.box,
                           indexDirect: 2,
                         ));
