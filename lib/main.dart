@@ -30,10 +30,6 @@ class _MyAppState extends State<MyApp> {
   }
 
   // This widget is the root of your application.
-// Ini ditambahkan
-  void _setDatabase() async {
-    await SQLHelperJenis.getJenisSunnah();
-  }
 
   @override
   void initState() {

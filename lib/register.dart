@@ -159,7 +159,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       elevation: 0,
-                      backgroundColor: const Color(0xFF41966F),
+                      backgroundColor: Color(0xFF41966F),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),
@@ -192,6 +192,10 @@ class _RegisterPageState extends State<RegisterPage> {
                                     icon: Icons.check_circle_outline);
                               });
                           await auth.box.write("username", auth.username.text);
+                          auth.jenisKelamin.text = selectedValue;
+                          await auth.box
+                              .write("jenis_kelamin", auth.jenisKelamin.text);
+                          print(auth.jenisKelamin.text);
                           await Get.offAll(BottomBar(
                             username: auth.box,
                             indexDirect: 0,

@@ -7,6 +7,7 @@ import 'package:sunnah_reminder/challenge/challenge_sunnah.dart';
 import 'package:sunnah_reminder/controller.dart';
 import 'package:sunnah_reminder/dashboard/dashboard.dart';
 import 'package:sunnah_reminder/profil/profil.dart';
+import 'package:sunnah_reminder/profil/profil_update.dart';
 import 'package:sunnah_reminder/reminder/reminder_view.dart';
 
 class BottomBar extends StatefulWidget {
@@ -41,7 +42,7 @@ class _BottomBarState extends State<BottomBar> {
       const ReminderView(title: "Sunnah Reminder"),
       const ChallengePage(title: "Challenge Sunnah"),
       const MainPage(),
-      const ProfilPage(),
+      if (username != null) ProfilPage(box: username) else const ProfilPage(),
     ];
   }
 

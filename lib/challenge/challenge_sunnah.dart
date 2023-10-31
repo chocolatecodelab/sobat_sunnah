@@ -4,6 +4,7 @@ import 'package:intl/intl.dart'; // Import pustaka intl
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:hijriyah_indonesia/hijriyah_indonesia.dart';
 import 'package:sunnah_reminder/challenge/model/tb_jenis_sunnah_helper.dart';
+import 'package:sunnah_reminder/widget/success_confirmation_dialog.dart';
 
 import 'model/tb_transaksi_sunnah_helper.dart';
 
@@ -22,6 +23,7 @@ class _ChallengePageState extends State<ChallengePage> {
   List<Map<String, dynamic>> uncompletedTasks = [];
 
   void _refreshTransaksi(DateTime hari) async {
+    await SQLHelperJenis.getJenisSunnah();
     final dataUncompleted =
         await SQLHelperTransaksi.getItemsByDayIsNotCompleted(hari);
     final dataCompleted = await SQLHelperTransaksi.getItemsDayIsCompleted(hari);
@@ -35,7 +37,15 @@ class _ChallengePageState extends State<ChallengePage> {
 
   Future<void> _updateItem(int? id) async {
     await SQLHelperTransaksi.updateTransaksi(id!);
-    _refreshTransaksi(DateTime(2023, 10, 27));
+    _refreshTransaksi(DateTime.now());
+  }
+
+  bool isToday(DateTime date) {
+    bool check = false;
+    check = date.year == DateTime.now().year;
+    check = date.month == DateTime.now().month;
+    check = date.day == DateTime.now().day;
+    return check;
   }
 
   int daysInMonth = DateTime(currentdate.year, currentdate.month + 1, 0).day;
@@ -49,25 +59,11 @@ class _ChallengePageState extends State<ChallengePage> {
   @override
   void initState() {
     super.initState();
-    _refreshTransaksi(DateTime(2023, 10, 27));
+    _refreshTransaksi(DateTime.now());
   }
 
   @override
   Widget build(BuildContext context) {
-    // Future<double> refreshAndCalculateCompletionPercentage() async {
-    //   await _refreshTransaksi(DateTime(2023, 10, 27));
-    //   double completionPercentage = calculateCompletionPercentage();
-    //   return completionPercentage;
-    // }
-    //
-    // for (int idx = 0; idx < _dataTransaksi.length; idx++) {
-    //   if (_dataTransaksi[idx]['isCompleted'] == 1) {
-    //     completedTasks.add(_dataTransaksi[idx]);
-    //   } else {
-    //     uncompletedTasks.add(_dataTransaksi[idx]);
-    //   }
-    // }
-
     int totalTasks = uncompletedTasks.length + completedTasks.length;
     int completedTasksCount = completedTasks.length;
 
@@ -247,62 +243,58 @@ class _ChallengePageState extends State<ChallengePage> {
                                     ['waktu_pelaksanaan']),
                               ],
                             ),
-                            // trailing: Checkbox(
-                            //   value: tasks[index].isCompleted,
-                            //   shape: const CircleBorder(),
-                            //   onChanged: (value) {
-                            //     setState(() {
-                            //       tasks[index].isCompleted = value!;
-                            //       if (value) {
-                            //         selectedItems.add(tasks[index]);
-                            //         selectedTime.add(time[index]);
-                            //         tasks.remove(tasks[index]);
-                            //         time.remove(time[index]);
-                            //         completedTasks++;
-                            //       }
-                            //     });
-                            //   },
-                            // ),
-
                             trailing: Checkbox(
                               value: false,
                               shape: const CircleBorder(),
-                              onChanged: (value) {
-                                if (value == true) {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: const Text('Konfirmasi'),
-                                        content: const Text(
-                                            'Apakah Anda yakin ingin menyelesaikan tugas ini?'),
-                                        actions: <Widget>[
-                                          TextButton(
-                                            child: const Text('Batal'),
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                          ),
-                                          TextButton(
-                                            child: const Text('Ya'),
-                                            onPressed: () {
-                                              _updateItem(
-                                                  uncompletedTasks[index]
-                                                      ['id_transaksi_sunnah']!);
-                                              Navigator.of(context).pop();
-                                            },
-                                          ),
-                                        ],
-                                      );
+                              onChanged: (!isToday(currentdate))
+                                  ? null
+                                  : (value) {
+                                      if (value == true) {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: const Text('Konfirmasi'),
+                                              content: const Text(
+                                                  'Apakah Anda yakin ingin menyelesaikan tugas ini?'),
+                                              actions: <Widget>[
+                                                TextButton(
+                                                  child: const Text('Batal'),
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                ),
+                                                TextButton(
+                                                  child: const Text('Ya'),
+                                                  onPressed: () async {
+                                                    _updateItem(uncompletedTasks[
+                                                            index][
+                                                        'id_transaksi_sunnah']!);
+                                                    Navigator.of(context).pop();
+                                                    await showDialog(
+                                                        context: context,
+                                                        builder: (BuildContext
+                                                            context) {
+                                                          return SuccessConfirmationDialog(
+                                                              message:
+                                                                  "Data berhasil disimpan",
+                                                              icon: Icons
+                                                                  .check_circle_outline);
+                                                        });
+                                                  },
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      } else {
+                                        // Tindakan ketika checkbox tidak dicentang
+                                        setState(() {
+                                          uncompletedTasks[index]
+                                              ['isCompleted'] = 0;
+                                        });
+                                      }
                                     },
-                                  );
-                                } else {
-                                  // Tindakan ketika checkbox tidak dicentang
-                                  setState(() {
-                                    uncompletedTasks[index]['isCompleted'] = 0;
-                                  });
-                                }
-                              },
                             ),
                           ),
                         );
