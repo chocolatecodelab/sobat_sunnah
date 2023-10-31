@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sunnah_reminder/bottom_bar.dart';
+import 'package:sunnah_reminder/challenge/model/tb_jenis_sunnah_helper.dart';
 import 'package:sunnah_reminder/notification/notification_controller.dart';
 import 'package:sunnah_reminder/splash/splash.dart';
 
@@ -29,6 +30,11 @@ class _MyAppState extends State<MyApp> {
   }
 
   // This widget is the root of your application.
+// Ini ditambahkan
+  void _setDatabase() async {
+    await SQLHelperJenis.getJenisSunnah();
+  }
+
   @override
   void initState() {
     NotificationController.startListeningNotificationEvents();

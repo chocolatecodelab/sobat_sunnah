@@ -38,7 +38,7 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
             backgroundColor: Colors.white,
             elevation: 0,
-            title: Text(
+            title: const Text(
               'Sobat Sunnah',
               style:
                   TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
