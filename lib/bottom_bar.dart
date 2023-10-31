@@ -11,21 +11,28 @@ import 'package:sunnah_reminder/reminder/reminder_view.dart';
 
 class BottomBar extends StatefulWidget {
   final GetStorage username;
-  const BottomBar({Key? key, required this.username}) : super(key: key);
+  final int indexDirect;
+  const BottomBar({Key? key, required this.indexDirect, required this.username})
+      : super(key: key);
 
   @override
   State<BottomBar> createState() => _BottomBarState();
 }
 
 class _BottomBarState extends State<BottomBar> {
-  int _currentIndex = 0;
-  List<Widget> _pages = []; // Pindahkan inisialisasi ke sini
+  late int _currentIndex;
+  late List<Widget> _pages = []; // Pindahkan inisialisasi ke sini
   var auth = Get.put(Controller());
 
   @override
   void initState() {
     super.initState();
     final username = widget.username;
+    if (widget.indexDirect == 2) {
+      _currentIndex = 2;
+    } else {
+      _currentIndex = widget.indexDirect;
+    }
     _pages = [
       if (username != null)
         DashboardPage(box: username)

@@ -12,7 +12,7 @@ class NotificationController {
   ///
   static Future<void> initializeLocalNotifications() async {
     await AwesomeNotifications().initialize(
-        null, //'resource://drawable/res_app_icon',//
+        'resource://drawable/notification_icon', //'resource://drawable/res_app_icon',//
         [
           NotificationChannel(
               channelKey: 'alerts',
@@ -176,10 +176,6 @@ class NotificationController {
     if (!isAllowed) isAllowed = await displayNotificationRationale();
     if (!isAllowed) return;
 
-    final String imagePath = 'assets/images/your_image.jpg';
-
-    final Bitmap bigPicture = BitmapUtils.fromFilePath(imagePath);
-
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
           id: DateTime.now()
@@ -217,12 +213,6 @@ class NotificationController {
         day: 10,
         hour: 7,
         minute: 0);
-
-    await scheduleSholatSunnahHarian(
-        title: "Sholat Dhuha",
-        body: "Jangan lupa sholat Dhuhanya!",
-        hour: 09,
-        minute: 00);
 
     await scheduleSholatSunnahHarian(
         title: "Sholat Tahajud",
@@ -318,8 +308,10 @@ Future<void> scheduleSholatSunnahHarian(
       channelKey: 'alerts', // Sesuaikan dengan channel yang telah Anda buat
       title: title,
       body: body,
+      largeIcon:
+          "https://github.com/chocolatecodelab/sobat_sunnah/blob/master/assets/image/logo.png?raw=true",
       bigPicture:
-          'https://example.com/your_image.jpg', // Gantilah dengan URL gambar yang sesuai
+          'https://github.com/chocolatecodelab/sobat_sunnah/blob/master/assets/images/prayer4.png?raw=true', // Gantilah dengan URL gambar yang sesuai
       notificationLayout: NotificationLayout.BigPicture,
       payload: {'notificationId': title},
     ),

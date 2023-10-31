@@ -17,7 +17,7 @@ class SunnahPageState extends State<SunnahPage> {
       appBar: AppBar(
           automaticallyImplyLeading: false,
           title: const Text(
-            "Deskripsi Sunnah",
+            "Sunnah",
             style: TextStyle(
                 color: Color(0xFF41966F), fontWeight: FontWeight.bold),
           )),
@@ -46,24 +46,41 @@ class SunnahPageState extends State<SunnahPage> {
                   children: [
                     Column(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         Text(
                           widget.niatData.judul,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
-                        Image.asset("assets/images/prayer.png"),
+                        Image.asset(widget.niatData.image),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Row(children: [
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Text(
+                            "Deskripsi",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
+                            textAlign: TextAlign.left,
+                          ),
+                        ]),
+                        const SizedBox(
+                          height: 5,
+                        ),
                         Container(
-                          margin:
-                              EdgeInsets.only(bottom: 20, left: 20, right: 20),
+                          margin: const EdgeInsets.only(
+                              bottom: 20, left: 20, right: 20),
                           child: SelectableText(
                             widget.niatData.deskripsi,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.black, // Mengganti warna font
                               fontSize: 14,
                             ),
@@ -71,15 +88,15 @@ class SunnahPageState extends State<SunnahPage> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(left: 20, right: 20),
+                          margin: const EdgeInsets.only(left: 20, right: 20),
                           child: SelectableText(
                             widget.niatData.arabic,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.black, // Mengganti warna font
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
-                            textAlign: TextAlign.center,
+                            textAlign: TextAlign.right,
                           ),
                         ),
                         // Center(
@@ -105,6 +122,38 @@ class SunnahPageState extends State<SunnahPage> {
                             ),
                             textAlign: TextAlign.justify,
                           ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Text(
+                              "Jadwal",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 20),
+                              textAlign: TextAlign.left,
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Icon(Icons.watch_later_outlined),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Expanded(child: Text(widget.niatData.jadwal))
+                              ],
+                            ),
+                          ],
                         ),
                         SizedBox(
                           height: 20,
@@ -149,7 +198,10 @@ class SunnahPageState extends State<SunnahPage> {
                               ),
                             ),
                           ],
-                        )
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
                       ],
                     ),
                   ],

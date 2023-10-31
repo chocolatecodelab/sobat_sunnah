@@ -192,8 +192,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                     icon: Icons.check_circle_outline);
                               });
                           await auth.box.write("username", auth.username.text);
-                          await Get.to(BottomBar(
+                          await Get.offAll(BottomBar(
                             username: auth.box,
+                            indexDirect: 0,
                           ));
                         }
                       }

@@ -185,14 +185,8 @@ class _ReminderViewState extends State<ReminderView> {
       ),
       body: Column(
         children: [
-          ElevatedButton(
-            onPressed: () => {
-              NotificationController.createNewNotification(
-                  title: "Ayo! Jangan Lupa Sholat Tarawih",
-                  body:
-                      "Tarawih adalah salah satu sunnah yang dianjurkan Rasulullah SAW saat bulan Ramadhan"),
-            },
-            child: const Text("Show Notification"),
+          SizedBox(
+            height: 15,
           ),
           Expanded(
             child: SfCalendar(

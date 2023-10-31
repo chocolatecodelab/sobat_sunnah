@@ -27,7 +27,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void onTimerFinished(Controller controller) {
     if (controller.box.hasData("username")) {
-      Get.off(BottomBar(username: controller.box));
+      Get.offAll(BottomBar(
+        username: controller.box,
+        indexDirect: 0,
+      ));
     } else {
       Get.to(WelcomeScreen());
     }

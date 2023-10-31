@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:sunnah_reminder/bacaan_sholat/model/model_niat.dart';
+import 'package:sunnah_reminder/bacaan_sholat/page/sunnah_page.dart';
+import 'package:sunnah_reminder/bottom_bar.dart';
+import 'package:sunnah_reminder/challenge/challenge_sunnah.dart';
+import 'package:sunnah_reminder/controller.dart';
 import 'package:sunnah_reminder/notification/notification_controller.dart';
 import 'package:sunnah_reminder/register.dart';
 import 'package:sunnah_reminder/splash/welcome_screen.dart';
@@ -14,6 +19,7 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
+  var auth = Get.put(Controller());
   @override
   Widget build(BuildContext context) {
     final String username = widget.box!.read("username");
@@ -64,7 +70,7 @@ class _DashboardPageState extends State<DashboardPage> {
             title: 'Yuk Lanjutkan Sunnah Harianmu!',
             subtitle: 'Tap untuk lebih lanjut',
             onTap: () {
-              // Handle when the tile is clicked
+              Get.to(ChallengePage(title: "Challenge Sunnah"));
             },
           ),
 
@@ -75,19 +81,21 @@ class _DashboardPageState extends State<DashboardPage> {
               "Puasa Ayyamul Bidh",
               "Puasa dipertengahan bulan, berlatih mengontrol hawa nafsu",
               "./assets/image/ayyamul_bidh.jpg",
+              1,
             ),
             // Item 2
             getItemCardEvent(
               "Sholat Tarawih",
               "Sholat yang dapat menghapus dosa di masa lalu",
               "./assets/image/tarawih.jpg",
+              2,
             ),
             // Item 3
             getItemCardEvent(
-              "Al-Kahfi Time",
-              "Membaca Surah Al-Kahfi tiap Jum'at, memancarkan pancaran cahaya pada hari kiamat",
-              "./assets/image/kahfi.jpg",
-            ),
+                "Al-Kahfi Time",
+                "Membaca Surah Al-Kahfi tiap Jum'at, memancarkan pancaran cahaya pada hari kiamat",
+                "./assets/image/kahfi.jpg",
+                3),
           ]),
 
           // Horizontal Slider 2 (Challenge Today)
@@ -194,7 +202,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      // Handle button action here
+                      Get.to(ChallengePage(title: "Challenge Sunnah"));
                     },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(
@@ -217,7 +225,7 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   Widget getItemCardEvent(
-      String title, String subtitle, String backgroundImageUrl) {
+      String title, String subtitle, String backgroundImageUrl, int item) {
     return Container(
       width: 250, // Set the desired width for each item card
       margin: EdgeInsets.all(8),
@@ -275,7 +283,62 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      // Handle button action here
+                      final modelNiatList = [
+                        ModelNiat.fromJson({
+                          "id": 1,
+                          "judul": "Puasa Ayyamul Bidh",
+                          "image": "assets/images/prayer.png",
+
+                          "arabic":
+                              "صُوْمُ ثَلاَثَةِ اَیّٰامٍ مِّنْ كُلِّ شَهْرٍ وَّصِیْا مِّا یُّتْرَكُ سِوٰۤآءُ اُوْسَطِ وَاخِرِ سِتٰۤئِیْنَ مِنْ شَهْرِ ذُیْ الْحِجَّةِ",
+                          "latin":
+                              "Ṣūmu thalāthati ayyāmin min kulli shaharin waṣiyyā mā yutraku siwāu uṣaṭi wa-akhiri sittīna min shahri dhūl-ḥijjah",
+                          "terjemahan":
+                              "Puasa tiga hari setiap bulan dan puasa Ayyam al-Beed (13, 14, 15) adalah puasa yang disyariatkan. Kecuali puasa yang digantikan pada hari itu (yakni puasa tasyrik yang disunatkan)",
+                          "deskripsi":
+                              "Puasa pada tanggal 13, 14, dan 15 setiap bulan hijriah (kalender Islam) adalah sunnah yang dianjurkan. Ini juga dianjurkan berdasarkan hadis.",
+                          "manfaat":
+                              "Puasa pertengahan bulan memiliki manfaat spiritual, seperti mendekatkan diri kepada Allah dan meningkatkan keimanan.",
+                          "jadwal":
+                              " Tanggal 13, 14, dan 15 kecuali pada hari tasyrik yaitu 13 Dzulhijjah."
+                          // Informasi lainnya
+                        }),
+                        ModelNiat.fromJson({
+                          "id": 2,
+                          "judul": "Sholat Tarawih",
+                          "image": "assets/images/prayer2.png",
+                          "deskripsi":
+                              "shalat tarawih adalah ibadah sholat yagng hanya bisa dikerjakan saat bulan Ramadhan",
+                          "arabic":
+                              "مَنْ قَامَ رَمَضَانَ إيمَانًا وَاحْتِسَابًا غُفِرَ لَهُ مَا تَقَدَّمَ مِنْ ذَنْبِهِ",
+                          "latin":
+                              "Man qara'a suurat al-Kahfi fee yawmi al-Jumu'ati adhaa lahu min an-Nuuri ma bayna al-Jumu'atayn.",
+                          "terjemahan":
+                              "Barangsiapa ibadah (tarawih) di bulan Ramadhan seraya beriman dan ikhlas, maka diampuni baginya dosa yang telah lampau (HR al-Bukhari, Muslim, dan lainnya).",
+                          "jadwal":
+                              "setiap hari setelah isya pada bulan ramadhan"
+                        }),
+                        ModelNiat.fromJson({
+                          "id": 3,
+                          "judul": "Surah Al-Kahfi",
+                          "image": "assets/images/prayer3.png",
+                          "deskripsi":
+                              "Surah Al-Kahfi adalah surah ke-18 dalam Al-Qur'an. Surah ini mengandung pelajaran tentang iman, cobaan, dan perlindungan dari fitnah Dajjal.",
+                          "arabic":
+                              "مَنْ قَرَأَ سُورَةَ الْكَهْفِ فِى يَوْمِ الْجُمُعَةِ أَضَاءَ لَهُ مِنَ النُّورِ مَا بَيْنَ الْجُمُعَتَيْنِ",
+                          "latin":
+                              "Man qara'a suurat al-Kahfi fee yawmi al-Jumu'ati adhaa lahu min an-Nuuri ma bayna al-Jumu'atayn.",
+                          "terjemahan":
+                              "Barangsiapa yang membaca surat Al Kahfi pada hari Jum'at, dia akan disinari cahaya di antara dua Jum'at.(HR. An Nasa'i dan Baihaqi. Syaikh Al Albani mengatakan bahwa hadits ini shahih sebagaimana dalam Shohihul Jami'.)",
+                          "manfaat":
+                              "Memberikan cahaya dan perlindungan dari Dajjal.",
+                          "jadwal":
+                              "membaca surah Al-Kahfi pada malam Jumat dan hari Jumat"
+                        }),
+                        // Tambahkan item-model lainnya di sini
+                      ];
+
+                      Get.to(SunnahPage(niatData: modelNiatList[item - 1]));
                     },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(
