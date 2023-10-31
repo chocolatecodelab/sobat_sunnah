@@ -10,6 +10,8 @@ import 'package:sunnah_reminder/notification/notification_controller.dart';
 import 'package:sunnah_reminder/register.dart';
 import 'package:sunnah_reminder/splash/welcome_screen.dart';
 
+import '../challenge/model/tb_transaksi_sunnah_helper.dart';
+
 class DashboardPage extends StatefulWidget {
   final GetStorage? box;
   const DashboardPage({super.key, this.box});
@@ -19,6 +21,14 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
+
+  // Section untuk tambahTantangan
+  void tambahTantangan(int jenis_id) async {
+    // Sesuaikan Jenis_idnya kalo mau all in one berarti panggil 3x.
+    // Jenis ID : 1 = Sholat , 2 = Puasa , 3 = Lain-lain
+    await SQLHelperTransaksi.tambahTantangan(DateTime.now(), jenis_id);
+  }
+
   var auth = Get.put(Controller());
   @override
   Widget build(BuildContext context) {
