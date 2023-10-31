@@ -5,6 +5,9 @@ import 'package:sunnah_reminder/challenge/model/tb_jenis_sunnah_helper.dart';
 import 'package:sunnah_reminder/notification/notification_controller.dart';
 import 'package:sunnah_reminder/splash/splash.dart';
 
+import 'challenge/model/tb_jenis_sunnah_helper.dart';
+import 'challenge/model/tb_transaksi_sunnah_helper.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await NotificationController.initializeLocalNotifications();
@@ -22,6 +25,10 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  void _setDatabase() async {
+    await SQLHelperJenis.getJenisSunnah();
+  }
+
   // This widget is the root of your application.
 // Ini ditambahkan
   void _setDatabase() async {
@@ -32,7 +39,6 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     NotificationController.startListeningNotificationEvents();
     super.initState();
-    // Ini yang ditambahkan
     _setDatabase();
   }
 

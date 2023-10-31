@@ -10,6 +10,8 @@ import 'package:sunnah_reminder/controller.dart';
 import 'package:sunnah_reminder/widget/popup_tantangan.dart';
 import 'package:sunnah_reminder/widget/success_confirmation_dialog.dart';
 
+import '../challenge/model/tb_transaksi_sunnah_helper.dart';
+
 class DashboardPage extends StatefulWidget {
   final GetStorage? box;
   const DashboardPage({super.key, this.box});
