@@ -39,12 +39,12 @@ class _ProfilPageState extends State<ProfilPage> {
   }
 
   void _dayDone() async {
-    final dayCompleted = await SQLHelperTransaksi.getItemsIsCompleted();
+    final dayCompleted = await SQLHelperTransaksi.countCompletedDays();
     setState(() {
       completedDays = dayCompleted;
       cardData = [
         {
-          'textTop': levelSystem.currentLevel.toString(),
+          'textTop': levelSystem.totalExp.toString(),
           'textBottom': 'Total EXP',
         },
         {
@@ -102,8 +102,8 @@ class _ProfilPageState extends State<ProfilPage> {
                         "assets/image/male_avatar.svg",
                         height: 96,
                       )
-                    : SvgPicture.asset(
-                        "assets/image/muslimah_avatar.svg",
+                    : Image.asset(
+                        "assets/images/muslimah_avatar.png",
                         height: 96,
                       ),
               ],
@@ -168,6 +168,7 @@ class _ProfilPageState extends State<ProfilPage> {
                           16.0), // Atur nilai padding kiri sesuai kebutuhan Anda
                   child: Text(
                     'Statistik',
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.left,
                   ),
                 ),
@@ -194,23 +195,6 @@ class _ProfilPageState extends State<ProfilPage> {
                 ),
               ),
             ),
-            Center(
-              child: ElevatedButton(
-                onPressed: () async {
-                  auth.box.remove("username");
-                  Get.offAll(WelcomeScreen());
-                },
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(
-                        0xFF41966F), // Hapus warna latar belakang tombol
-                    foregroundColor: Colors.white, // Warna teks tombol
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    elevation: 4),
-                child: const Text('Mulai'),
-              ),
-            )
           ],
         ),
       ),

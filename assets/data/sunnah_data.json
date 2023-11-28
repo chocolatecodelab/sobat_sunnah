@@ -147,17 +147,17 @@
     "latin": "Fa salli li rabbika wanhar",
     "terjemahan": "Maka dirikanlah shalat karena Rabbmu dan berkurbanlah.(QS Al-Kautsar: 2)",
     "manfaat": "Sholat Idul Adha adalah wujud syukur kepada Allah atas kesempatan untuk berqurban dan mengikuti ibadah haji serta Dihapuskan dosa selama setahun lalu dan setahun yang akan datang."
-    ,"jadwal":""},
+    ,"jadwal":"10 Dzulhijjah pada sekitar jam 06.00-08.00 pagi"},
   {
     "id": 16,
-    "judul": "Sholat Isyraq (Dhuha)",
+    "judul": "Sholat Isyraq",
     "image" : "assets/images/prayer.png",
     "deskripsi": "Sholat Isyraq atau Dhuha adalah shalat sunnah yang dianjurkan pada waktu pagi setelah matahari naik. Sholat ini merupakan ungkapan syukur kepada Allah atas terbitnya matahari dan nikmat-Nya.",
-    "arabic": "Tidak ada dalil hadist atau ayat Al-Qur'an yang secara spesifik menyebutkan Sholat Isyraq (Dhuha) secara rinci.",
-    "latin": "Tidak ada bacaan Arab yang spesifik untuk Sholat Isyraq (Dhuha) karena tidak ada hadist atau ayat Al-Qur'an yang menjelaskannya secara rinci.",
-    "terjemahan": "Sholat Isyraq atau Dhuha adalah shalat sunnah yang dianjurkan pada waktu pagi setelah matahari naik. Sholat ini merupakan ungkapan syukur kepada Allah atas terbitnya matahari dan nikmat-Nya.",
-    "manfaat": "Sholat Isyraq (Dhuha) adalah ibadah syukur dan membawa berkah serta kebaikan."
-    ,"jadwal":"10 Dzulhijjah pada sekitar jam 06.00-08.00 pagi"},
+    "arabic": "Tidak ada dalil hadist atau ayat Al-Qur'an yang secara spesifik menyebutkan Sholat Isyraq secara rinci.",
+    "latin": "Tidak ada bacaan Arab yang spesifik untuk Sholat Isyraq karena tidak ada hadist atau ayat Al-Qur'an yang menjelaskannya secara rinci.",
+    "terjemahan": "Sholat Isyraq adalah shalat sunnah yang dianjurkan pada waktu pagi setelah matahari naik. Sholat ini merupakan ungkapan syukur kepada Allah atas terbitnya matahari dan nikmat-Nya.",
+    "manfaat": "Sholat Isyraq adalah ibadah syukur dan membawa berkah serta kebaikan."
+    ,"jadwal":"Setelah matahari terbit"},
   {
     "id": 17,
     "judul": "Sholat Wudhu",
@@ -180,14 +180,13 @@
     ,"jadwal":"Tidak boleh shalat setelah subuh sampai matahari naik (sedikit), dan tidak boleh shalat setelah Ashar sampai matahari menghilang (tidak tampak/terbenam)"},
   {
     "id": 19,
-    "judul": "Zikir Pagi Petang",
-    "image" : "assets/images/prayer4.png",
-    "deskripsi": "Zikir pagi dan petang adalah amalan berupa dzikir dan doa yang dianjurkan oleh Rasulullah pada pagi dan petang hari. Dengan berdzikir, kita mengingat Allah dan memohon rahmat-Nya.",
-    "arabic": "Dari Ibn Mas'ud radhiyallahu anhu, Rasulullah shallallahu alaihi wa sallam bersabda, 'مَنْ قَالَ حِينَ يُصْبِحُ وَيُمْسِي: سُبْحَانَ اللَّهِ وَبِحَمْدِهِ مِائَةَ مَرَّةٍ، لَمْ يَأْتِ أَحَدٌ يَوْمَ الْقِيَامَةِ بِأَفْضَلَ مِمَّا جَاءَ بِهِ إِلَّا رَجُلٌ قَالَ مِثْلَ مَا قَالَ، أَوْ زِيَادَةً.' (HR. Muslim no. 2692)",
-    "latin": "Qala Rasulullahi Shallallahu 'Alaihi Wa Sallama: 'Man Qala Hina Yusbihu, Wa Hina Yumsi, Subhanallahi Wa Bihamdihi, Mi'ata Marratin, La Ya'ti Bi Shai'in Yawmi Qiyamati, Ghairu An Yati Bi Mithli Ma Ja'at Bihi, Illa Rajulun Qala Mithla Ma Qala Aw Ziyadatan.'",
-    "terjemahan": "Dari Ibn Mas'ud radhiyallahu anhu, Rasulullah shallallahu alaihi wa sallam bersabda, 'Barang siapa yang mengucapkan 'Subhanallahi wa bihamdihi' seratus kali pada pagi hari, tidak ada seorang pun yang datang dengan amalan yang lebih baik dari amalannya kecuali orang yang mengucapkan yang serupa atau lebih.' (HR. Muslim)",
-    "manfaat": "Melaksanakan zikir pagi dan petang membantu kita menjaga kesadaran tentang Allah, memohon rahmat-Nya, dan mendapatkan pahala."
-  ,"jadwal":"setelah sholat Subuh sampai sebelum fajar terbit, sementara dzikir petang dilaksanakan selesai sholat Ashar hingga sebelum matahari terbenam"},
+    "judul": "Sholat Tarawih",
+      "image" : "assets/images/prayer3.png",
+      "deskripsi": "shalat tarawih adalah ibadah sholat yagng hanya bisa dikerjakan saat bulan Ramadhan",
+      "arabic": "مَنْ قَامَ رَمَضَانَ إيمَانًا وَاحْتِسَابًا غُفِرَ لَهُ مَا تَقَدَّمَ مِنْ ذَنْبِهِ",
+      "latin": "Man qara'a suurat al-Kahfi fee yawmi al-Jumu'ati adhaa lahu min an-Nuuri ma bayna al-Jumu'atayn.",
+      "terjemahan": "Barangsiapa ibadah (tarawih) di bulan Ramadhan seraya beriman dan ikhlas, maka diampuni baginya dosa yang telah lampau (HR al-Bukhari, Muslim, dan lainnya).",
+      "jadwal":"setiap hari setelah isya pada bulan ramadhan"},
   {
     "id": 20,
     "judul": "Surah Al-Waqiah",
@@ -220,11 +219,15 @@
     ,"jadwal":"membaca surah Al-Kahfi pada malam Jumat dan hari Jumat" },
     {
       "id": 23,
-      "judul": "Sholat Tarawih",
-      "image" : "assets/images/prayer3.png",
-      "deskripsi": "shalat tarawih adalah ibadah sholat yagng hanya bisa dikerjakan saat bulan Ramadhan",
-      "arabic": "مَنْ قَامَ رَمَضَانَ إيمَانًا وَاحْتِسَابًا غُفِرَ لَهُ مَا تَقَدَّمَ مِنْ ذَنْبِهِ",
-      "latin": "Man qara'a suurat al-Kahfi fee yawmi al-Jumu'ati adhaa lahu min an-Nuuri ma bayna al-Jumu'atayn.",
-      "terjemahan": "Barangsiapa ibadah (tarawih) di bulan Ramadhan seraya beriman dan ikhlas, maka diampuni baginya dosa yang telah lampau (HR al-Bukhari, Muslim, dan lainnya).",
-      "jadwal":"setiap hari setelah isya pada bulan ramadhan" }
+      "judul": "Zikir Pagi Petang",
+    "image" : "assets/images/prayer4.png",
+    "deskripsi": "Zikir pagi dan petang adalah amalan berupa dzikir dan doa yang dianjurkan oleh Rasulullah pada pagi dan petang hari. Dengan berdzikir, kita mengingat Allah dan memohon rahmat-Nya.",
+    "arabic": "Dari Ibn Mas'ud radhiyallahu anhu, Rasulullah shallallahu alaihi wa sallam bersabda, 'مَنْ قَالَ حِينَ يُصْبِحُ وَيُمْسِي: سُبْحَانَ اللَّهِ وَبِحَمْدِهِ مِائَةَ مَرَّةٍ، لَمْ يَأْتِ أَحَدٌ يَوْمَ الْقِيَامَةِ بِأَفْضَلَ مِمَّا جَاءَ بِهِ إِلَّا رَجُلٌ قَالَ مِثْلَ مَا قَالَ، أَوْ زِيَادَةً.' (HR. Muslim no. 2692)",
+    "latin": "Qala Rasulullahi Shallallahu 'Alaihi Wa Sallama: 'Man Qala Hina Yusbihu, Wa Hina Yumsi, Subhanallahi Wa Bihamdihi, Mi'ata Marratin, La Ya'ti Bi Shai'in Yawmi Qiyamati, Ghairu An Yati Bi Mithli Ma Ja'at Bihi, Illa Rajulun Qala Mithla Ma Qala Aw Ziyadatan.'",
+    "terjemahan": "Dari Ibn Mas'ud radhiyallahu anhu, Rasulullah shallallahu alaihi wa sallam bersabda, 'Barang siapa yang mengucapkan 'Subhanallahi wa bihamdihi' seratus kali pada pagi hari, tidak ada seorang pun yang datang dengan amalan yang lebih baik dari amalannya kecuali orang yang mengucapkan yang serupa atau lebih.' (HR. Muslim)",
+    "manfaat": "Melaksanakan zikir pagi dan petang membantu kita menjaga kesadaran tentang Allah, memohon rahmat-Nya, dan mendapatkan pahala."
+  ,"jadwal":"setelah sholat Subuh sampai sebelum fajar terbit, sementara dzikir petang dilaksanakan selesai sholat Ashar hingga sebelum matahari terbenam" }
 ]
+
+
+

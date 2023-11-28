@@ -11,11 +11,11 @@ import 'challenge/model/tb_transaksi_sunnah_helper.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await NotificationController.initializeLocalNotifications();
-  await NotificationController.scheduleSholatNotification();
   runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
+  
   const MyApp({super.key});
   static final GlobalKey<NavigatorState> navigatorKey =
       GlobalKey<NavigatorState>();

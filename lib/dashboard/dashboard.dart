@@ -7,6 +7,7 @@ import 'package:sunnah_reminder/bottom_bar.dart';
 import 'package:sunnah_reminder/challenge/challenge_sunnah.dart';
 import 'package:sunnah_reminder/challenge/model/tb_transaksi_sunnah_helper.dart';
 import 'package:sunnah_reminder/controller.dart';
+import 'package:sunnah_reminder/notification/notification_controller.dart';
 import 'package:sunnah_reminder/widget/popup_tantangan.dart';
 import 'package:sunnah_reminder/widget/success_confirmation_dialog.dart';
 
@@ -22,7 +23,8 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   // Section untuk tambahTantangan
-  void tambahTantangan(int jenis_id) async {
+
+  Future<void> tambahTantangan(int jenis_id) async {
     // Sesuaikan Jenis_idnya kalo mau all in one berarti panggil 3x.
     // Jenis ID Sunnah : 1 = Sholat , 2 = Puasa , 3 = Lain-lain
     await SQLHelperTransaksi.tambahTantangan(DateTime.now(), jenis_id);
@@ -32,7 +34,7 @@ class _DashboardPageState extends State<DashboardPage> {
     tambahTantangan(1);
     tambahTantangan(2);
     tambahTantangan(3);
-}
+  }
 
   void tambahTantanganSholat() {
     tambahTantangan(1);
@@ -44,6 +46,12 @@ class _DashboardPageState extends State<DashboardPage> {
 
   void tambahTantanganLainnya() {
     tambahTantangan(3);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    NotificationController.scheduleSholatNotification();
   }
 
   var auth = Get.put(Controller());
@@ -132,24 +140,28 @@ class _DashboardPageState extends State<DashboardPage> {
                 "Sunnah All-in-One",
                 "Harapan menjadi seorang yang menghidupkan sunnah Rasulullah dengan ganjaran pahala dan balasan yang luar biasa",
                 "./assets/image/allone.jpg",
-                "1. Puasa\n2. Sholat\n3. Sunnah Lainnya"),
+                "1. Puasa\n2. Sholat\n3. Sunnah Lainnya",
+                1),
             getItemCard(
                 "Membaca Qur'an",
                 "Harapan menjadi keluarga Al-Qur'an dengan sering membaca Al-Qur'an setiap hari",
                 "./assets/image/quran.jpg",
-                "1. Surah Al-Mulk\n 2. Surah Yasin \n3. Surah Al-Waqi'ah"),
+                "1. Surah Al-Mulk\n 2. Surah Yasin \n3. Surah Al-Waqi'ah",
+                2),
             // Item 2
             getItemCard(
                 "Sholat Sunnah",
                 "Menjadi pemburu surga dengan menjalankan perintah sholat sunnah setiap saat",
                 "./assets/image/shalat.jpg",
-                "1. Sholat Rawatib\n2. Sholat Dhuha\n3. Sholat Tahajud"),
+                "1. Sholat Rawatib\n2. Sholat Dhuha\n3. Sholat Tahajud",
+                3),
             // Item 3
             getItemCard(
                 "Pejuang Puasa",
                 "Menjadi seorang Ummat dengan penuh makna dengan menjalankan sunnah Puasa",
                 "./assets/image/puasa.jpg",
-                "1. Puasa Senin-Kamis\n 2. Puasa Ayyamul Bidh \n3. Puasa 10 Muharram"),
+                "1. Puasa Senin-Kamis\n 2. Puasa Ayyamul Bidh \n3. Puasa 10 Muharram",
+                4),
           ]),
         ],
       ),
@@ -179,8 +191,8 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
-  Widget getItemCard(
-      String title, String subtitle, String backgroundImageUrl, String list) {
+  Widget getItemCard(String title, String subtitle, String backgroundImageUrl,
+      String list, int id) {
     return Container(
       width: 250, // Set the desired width for each item card
       margin: const EdgeInsets.all(8),
@@ -249,21 +261,41 @@ class _DashboardPageState extends State<DashboardPage> {
                         },
                       );
                       if (confirmationResult == true) {
-                        await showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return SuccessConfirmationDialog(
-                                  message: "Data berhasil disimpan",
-                                  icon: Icons.check_circle_outline);
-                            });
-
-                        // Pakai if disini
-                        tambahTantanganALlinOne();
-                        await auth.box.write("username", auth.username.text);
-                        await Get.off(BottomBar(
-                          username: auth.box,
-                          indexDirect: 2,
-                        ));
+                        bool isEmpty = await SQLHelperTransaksi
+                            .isTransaksiSunnahEmptyToday();
+                        if (isEmpty) {
+                          await showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return SuccessConfirmationDialog(
+                                    message: "Data berhasil disimpan",
+                                    icon: Icons.check_circle_outline);
+                              });
+                          // Pakai if disini
+                          if (id == 1) {
+                            tambahTantanganALlinOne();
+                          } else if (id == 2) {
+                            tambahTantanganLainnya();
+                          } else if (id == 3) {
+                            tambahTantanganSholat();
+                          } else if (id == 4) {
+                            tambahTantanganPuasa();
+                          }
+                          await auth.box.write("username", auth.username.text);
+                          await Get.off(BottomBar(
+                            username: auth.box,
+                            indexDirect: 2,
+                          ));
+                        } else {
+                          await showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return SuccessConfirmationDialog(
+                                    message:
+                                        "Data gagal disimpan. Paket Challenge sudah dibuat",
+                                    icon: Icons.close_rounded);
+                              });
+                        }
                       }
                     },
                     style: ElevatedButton.styleFrom(

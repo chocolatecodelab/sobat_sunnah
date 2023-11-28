@@ -1,6 +1,7 @@
 import 'dart:ffi';
 import 'dart:io';
 import 'dart:math';
+import 'package:intl/intl.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart' as sql;
@@ -52,6 +53,7 @@ class SQLHelperTransaksi {
     final db = await SQLHelperTransaksi.db();
 
     DateTime tanggalAwal = hari;
+    print(tanggalAwal);
     List<Map<String, dynamic>> sunnahList = await db.query(
       'tb_sunnah',
       columns: ['id_sunnah', 'isHari'],
@@ -71,23 +73,38 @@ class SQLHelperTransaksi {
         if (sunnahHari.split(',').contains(weekday.toString())) {
           int isCompleted = 0;
 
-          String formattedDate = '${tanggalPelaksanaan.year}-${tanggalPelaksanaan.month.toString().padLeft(2, '0')}-${tanggalPelaksanaan.day.toString().padLeft(2, '0')}';
+          String formattedDate =
+              '${tanggalPelaksanaan.year}-${tanggalPelaksanaan.month.toString().padLeft(2, '0')}-${tanggalPelaksanaan.day.toString().padLeft(2, '0')}';
 
-          await db.rawInsert('''
+          await db.rawInsert(
+              '''
           INSERT INTO tb_transaksi_sunnah (user_id, sunnah_id, isCompleted, created_at, updated_at, tanggal_pelaksanaan)
           VALUES (1, ?, ?, '2023-10-18 10:00:00', '2023-10-18 10:00:00', ?)
-        ''', [sunnahId, isCompleted, formattedDate]);
+        ''',
+              [sunnahId, isCompleted, formattedDate]);
         }
       }
     }
   }
 
+  static Future<bool> isTransaksiSunnahEmptyToday() async {
+    final db = await SQLHelperTransaksi.db();
+    final now = DateTime.now();
+    final formattedDate = DateFormat('yyyy-MM-dd').format(now);
 
-  static Future<List<Map<String, dynamic>>> getItemsByDayIsNotCompleted(DateTime hari) async {
+    final count = sql.Sqflite.firstIntValue(await db.rawQuery(
+      "SELECT COUNT(*) FROM tb_transaksi_sunnah WHERE DATE(tanggal_pelaksanaan) = '$formattedDate'",
+    ));
+    return count == 0;
+  }
+
+  static Future<List<Map<String, dynamic>>> getItemsByDayIsNotCompleted(
+      DateTime hari) async {
     final db = await SQLHelperTransaksi.db();
     String tanggalString = hari.toLocal().toIso8601String();
     String tanggalHanya = tanggalString.split('T')[0];
-    return db.rawQuery('''
+    return db.rawQuery(
+        '''
       SELECT tb_transaksi_sunnah.*, tb_sunnah.judul, tb_sunnah.arabic, tb_sunnah.latin, tb_sunnah.terjemahan, tb_sunnah.manfaat, tb_sunnah.deskripsi, tb_sunnah.waktu_pelaksanaan, tb_sunnah.isHari, tb_jenis_sunnah.nama_jenis_sunnah
       FROM tb_transaksi_sunnah
       INNER JOIN tb_sunnah ON tb_transaksi_sunnah.sunnah_id = tb_sunnah.id_sunnah
@@ -97,11 +114,13 @@ class SQLHelperTransaksi {
   ''');
   }
 
-  static Future<List<Map<String, dynamic>>> getItemsDayIsCompleted(DateTime hari) async {
+  static Future<List<Map<String, dynamic>>> getItemsDayIsCompleted(
+      DateTime hari) async {
     final db = await SQLHelperTransaksi.db();
     String tanggalString = hari.toLocal().toIso8601String();
     String tanggalHanya = tanggalString.split('T')[0];
-    return db.rawQuery('''
+    return db.rawQuery(
+        '''
       SELECT tb_transaksi_sunnah.*, tb_sunnah.judul, tb_sunnah.arabic, tb_sunnah.latin, tb_sunnah.terjemahan, tb_sunnah.manfaat, tb_sunnah.deskripsi, tb_sunnah.waktu_pelaksanaan, tb_sunnah.isHari, tb_jenis_sunnah.nama_jenis_sunnah
       FROM tb_transaksi_sunnah
       INNER JOIN tb_sunnah ON tb_transaksi_sunnah.sunnah_id = tb_sunnah.id_sunnah
@@ -122,8 +141,6 @@ class SQLHelperTransaksi {
   // ''');
   // }
 
-
-
   static Future<int> updateTransaksi(int id) async {
     final db = await SQLHelperTransaksi.db();
 
@@ -142,4 +159,3 @@ class SQLHelperTransaksi {
         where: "id_transaksi_sunnah = ?", whereArgs: [id]);
   }
 }
-

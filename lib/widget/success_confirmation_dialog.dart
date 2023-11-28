@@ -43,7 +43,10 @@ class _SuccessConfirmationDialogState extends State<SuccessConfirmationDialog> {
               ),
             ),
             SizedBox(height: 10),
-            Text(widget.message),
+            Text(
+              widget.message,
+              textAlign: TextAlign.center,
+            ),
             SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

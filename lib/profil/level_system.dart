@@ -1,12 +1,14 @@
 class LevelSystem {
+  int totalExp = 0;
   int currentExp = 0;
   int expNeededForNextLevel = 1000;
   int currentLevel = 1;
+
   void addExp(int exp) {
-    currentExp += exp;
-    if (currentExp >= expNeededForNextLevel) {
-      currentExp -= expNeededForNextLevel;
-      currentLevel++;
+    totalExp += exp;
+    if (totalExp >= expNeededForNextLevel) {
+      currentLevel = totalExp ~/ expNeededForNextLevel;
+      currentExp = totalExp - (currentLevel * expNeededForNextLevel);
     }
   }
 
