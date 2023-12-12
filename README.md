@@ -36,8 +36,11 @@ Sobat Sunnah memiliki fokus untuk:
 
 Kami menyambut kontribusi dari siapa pun yang ingin berpartisipasi dalam pengembangan aplikasi ini. Silakan buka *pull request* dan kami akan meninjau dengan senang hati.
 
+## Download Aplikasi
+![alt text](./apk/Sobat_Sunnah.apk)
+
 ## Sreenshot Aplikasi
 ![Sobat Sunnah](./screenshot/sobat_sunnah.png) 
 
-![alt text](https://github.com/chocolatecodelab/sobat_sunnah/blob/master/assets/images/prayer4.png?raw=true)
+
 
